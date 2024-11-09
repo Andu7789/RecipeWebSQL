@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Recipes</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"
+    ></script>
+    <script src="https://kit.fontawesome.com/a29d9734c5.js" crossorigin="anonymous"></script>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css"
+    />
+  </head>
+
+  <body>
+    <div class="container text-center border border-dark mt-5 rounded" style="max-width: 1200px" id="containersBtns">
+      <div class="row d-flex justify-content-center align-items-center">
+        <div class="col-auto">
+          <h4 class="mt-2" id="recipeCountDisplay">Test</h4>
+        </div>
+        <div class="col-auto d-flex">
+          <button class="btn btn-success m-2" id="addRecipeBtn">Add New Recipe</button>
+          <button class="btn btn-success m-2" id="showRecipeBtn">Show Recipes</button>
+          <button class="btn btn-danger m-2" id="deleteRecipeBtn">Delete Recipes</button>
+          <button class="btn btn-primary btn-custom m-2 " id="thisWeekBtn">This week</button>
+        </div>
+        <div class="col-auto">
+          <!-- <h4 class="mt-2" id="madeRecipeCountDisplay">Test</h4> -->
+          <h4 class="mt-2" id="madeRecipeCountDisplay" style="cursor: pointer;">Recipes "To be made": 0</h4>
+
+        </div>
+      </div>
+    </div>
+    
+
+    <div class="container text-center border border-dark mt-3 rounded d-none" style="max-width: 1600px" id="containerAddRecipeDetails">
+      <div class="row">
+
+        <div class="col-md-4 text-start ">
+          <label for="recipeName">Recipe Name</label>
+          <input class="input" style="width: 60%" type="text" id="recipeName" />
+        </div>
+        
+        <div class="col-md-4 fw-bolder fs-3 pt-1 ">
+          <label class="addImage" for="recipeImage">Add Image</label>
+          <input type="file" id="recipeImage" accept="image/*" style="display: none; width: 60%;" />
+          <div class="col-md-12 text-center mb-3" id="recipeImageDiv" ></div>
+          <p id="errorMessage" clas="border border-dark" style="color: red; display: none"></p>
+        </div>
+
+        <div class="col-md-4  text-start ">
+
+          <label for="labelList">Labels</label>
+          <input class="input" style="width: 50%" type="text" id="labelList" />
+          <button class="btn btn-success m-2" id="addLabelBtn">Add Label</button>
+
+          <div class="d-flex flex-row-reverse align-items-start" id="labelsContainer"></div>
+
+        </div>
+      </div>
+      <div class="row">
+
+
+          <div class="col-md-12 text-center " id="radioBtns">
+              <input type="radio" class="btn-check" name="PairOTPCheck" id="websiteBtn" autocomplete="off" checked>
+              <label class="btn btn-outline-success" for="websiteBtn">Website</label>
+              <input type="radio" class="btn-check" name="PairOTPCheck" id="bookBtn" autocomplete="off">
+              <label class="btn btn-outline-success" for="bookBtn">Book</label>
+              <input type="radio" class="btn-check" name="PairOTPCheck" id="otherBtn" autocomplete="off">
+              <label class="btn btn-outline-success" for="otherBtn">Other</label>
+          </div>
+           
+
+  
+
+          <div class="col-md-12 text-center" id="urlandnoteInputs">
+            <div>
+              <h5 class="mt-2">URL/Book name</h5>
+              <!-- <label for="URLorBook">URL/Book name</label> -->
+              <input class="input" style="width: 40%" type="text" id="URLorBook" />
+              <h5 class="mt-2">Notes</h5>
+              <!-- <label for="URLorBook">URL/Book name</label> -->
+              <textarea id="noteTextarea" name="noteTextarea" rows="4" cols="50" style="border-radius: 5px;"></textarea>
+            </div>
+          </div>
+
+          <div class="col-md-12 text-center d-none" id="otherInputs">
+            <div>
+              <h5 class="mt-2">Other</h5>
+              <!-- <label for="URLorBook">URL/Book name</label> -->
+              <textarea id="otherTextarea" name="otherTextarea" rows="8" cols="100" style="border-radius: 5px;"></textarea>
+            </div>
+          </div>
+
+   
+
+          <div class="col-md-12 text-center "> 
+            <button class="btn btn-success m-2" id="addRecipeToDBBtn">
+              Add Recipe to Database
+            </button>
+          </div>
+     
+
+      </div>
+    </div>
+
+
+    <div class="container text-center border border-dark mt-3 rounded d-none" style="max-width: 1000px" id="containerSearch">
+    <div class="row">
+        <div class="col mb-2 mt-2">
+            <label for="recipeName">Search</label>
+            <input class="input" style="width: 60%" type="text" id="recipeSearch" />
+            <button class="btn btn-success m-2" id="SearchBtn">Search</button>
+        </div>
+    </div>
+    </div>
+    <div class="container text-center border border-dark mt-3 rounded d-none" id="displaynoteTextareaContainer">
+      <div style="display: flex; flex-direction: column; align-items: center; justify-content: center;" >
+        <textarea id="displaynoteTextarea" name="displaynoteTextarea" rows="20" cols="100" style="border-radius: 5px;" readonly></textarea>
+        <button class="btn btn-success m-2" id="closeBtnNotesTextArea">Close</button>
+      </div>
+    </div>
+    
+    <div id="paginationContainer" class="text-center mt-4 d-none"></div>
+    <div class="container text-center mt-3 rounded d-none" style="max-width: 1600px" id="containerRecipesCards"></div>
+
+    <div class="container text-center mt-3 d-none" style="max-width: 1600px" id="containerRecipesCardsError"></div>
+    <div class="container text-center mt-3 rounded d-none" style="max-width: 1600px" id="containerRecipesCardsDelete"></div>
+    <div class="container text-center mt-3 rounded d-none" style="max-width: 1600px" id="containerRecipesDeleteError"></div>
+    <div class="banner mt-5 d-none">
+      <div class="slider" style="--quantity: 10">
+        <div class="item" style="--position: 1"><img src="../Assets/ScreenShots/Picture1.png" alt=""></div>
+        <div class="item" style="--position: 2"><img src="../Assets/ScreenShots/Picture20.png" alt=""></div>
+        <div class="item" style="--position: 3"><img src="../Assets/ScreenShots/Picture3.png" alt=""></div>
+        <div class="item" style="--position: 4"><img src="../Assets/ScreenShots/Picture4.png" alt=""></div>
+        <div class="item" style="--position: 5"><img src="../Assets/ScreenShots/Picture5.png" alt=""></div>
+        <div class="item" style="--position: 6"><img src="../Assets/ScreenShots/Picture6.png" alt=""></div>
+        <div class="item" style="--position: 7"><img src="../Assets/ScreenShots/Picture7.png" alt=""></div>
+        <div class="item" style="--position: 8"><img src="../Assets/ScreenShots/Picture18.png" alt=""></div>
+        <div class="item" style="--position: 9"><img src="../Assets/ScreenShots/Picture9.png" alt=""></div>
+        <div class="item" style="--position: 10"><img src="../Assets/ScreenShots/Picture10.png" alt=""></div>
+      </div>
+    </div>
+
+    <style>
+      .box {
+        border: 2px solid white;  /* Creates a solid border */
+        padding: 20px;            /* Adds space inside the box */
+        margin: 10px;             /* Adds space outside the box */
+        width: 100px;             /* Set the box width */
+        height: 100px;            /* Set the box height */
+        text-align: center;       /* Centers the text inside the box */
+      }
+    </style>  
+
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+      crossorigin="anonymous"
+    ></script>
+    <script src="Home.js"></script>
+    <script></script>
+  </body>
+</html>
