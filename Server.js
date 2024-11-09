@@ -7,21 +7,20 @@ const Datastore = require("nedb");
 const port = process.env.PORT || 3001;
 let recipeNumberDB = 1;
 
-
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
   findHighestRecipeNumber();
-
 });
 
-app.use(express.static("public")); //listens for all files within the 'public' folder
-app.use(express.json({ limit: "10mb" })); //need this for JSON to be allowed to be used
-app.use("/Assets", express.static("Assets"));
+// Serve static files from the root directory
+app.use(express.static(__dirname)); // Updated to serve static files from the root directory
+app.use(express.json({ limit: "10mb" })); // Allow JSON to be used
 
 // Define routes
 app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "public", "Home.html"));
+  res.sendFile(path.join(__dirname, "index.html")); // Updated to point to index.html in the root
 });
+
 
 // make a new database called database.db if it doesnt already exist
 const database1 = new Datastore("Recipes.db");
