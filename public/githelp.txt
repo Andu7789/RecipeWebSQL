@@ -1,0 +1,11 @@
+# 1. Check which files have been modified/added
+git status
+
+# 2. Add all changed files to staging
+git add .
+
+# 3. Commit the changes with a meaningful message
+git commit -m "Fix: Express dependency issue and reinstall node modules"
+
+# 4. Push the changes to your remote repository
+git push origin main  # or 'master' depending on your branch name
