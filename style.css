@@ -12,9 +12,24 @@
 }
 
 #containerRecipesCards, #containerRecipesCardsDelete {
-  grid-template-columns: repeat(6, 1fr);
-  grid-template-rows: auto 1fr;
   display: grid;
+  grid-template-columns: repeat(6, 1fr); /* Default for larger screens */
+  grid-template-rows: auto 1fr;
+}
+
+/* Media query for smaller screens */
+@media (max-width: 768px) { /* Adjust the max-width value as needed */
+  #containerRecipesCards, #containerRecipesCardsDelete {
+    grid-template-columns: repeat(2, 1fr); /* Reduce columns for mobile */
+    grid-template-rows: auto 1fr;
+  }
+}
+
+@media (max-width: 480px) { /* For even smaller screens */
+  #containerRecipesCards, #containerRecipesCardsDelete {
+    grid-template-columns: 1fr; /* Single column layout for very small screens */
+    grid-template-rows: auto 1fr;
+  }
 }
 
 
