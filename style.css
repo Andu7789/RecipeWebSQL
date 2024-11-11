@@ -25,7 +25,7 @@
   }
 }
 
-@media (max-width: 480px) { /* For even smaller screens */
+@media (max-width: 480px) { /* For even smaller screens  added some words*/ 
   #containerRecipesCards, #containerRecipesCardsDelete {
     grid-template-columns: 1fr; /* Single column layout for very small screens */
     grid-template-rows: auto 1fr;
