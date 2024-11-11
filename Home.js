@@ -261,9 +261,9 @@ addRecipeBtn.addEventListener("click", showAddRecipeSection);
 
     thisweekbtnclicked = false
     containerAddRecipeDetails.classList.toggle("d-none");
-    containerSearch.classList.toggle("d-none");
+    containerSearch.classList.add("d-none");
     recipeCardsContainer.innerHTML = "";
-    containerRecipesCards.classList.toggle("d-none")
+    containerRecipesCards.classList.add("d-none")
     containerRecipesCardsError.innerHTML = "";
     recipeNameInput.value = ""
     labelListInput.value = ""
@@ -277,6 +277,8 @@ addRecipeBtn.addEventListener("click", showAddRecipeSection);
     containerRecipesDeleteError.classList.add("hidden");
     recipeNameInput.focus();
     paginationContainer.classList.add("d-none");
+    containerRecipesCardsDelete.classList.add("d-none");
+    containerRecipesCardsError.classList.add("d-none");
     
   }
 
@@ -449,7 +451,7 @@ showRecipeBtn.addEventListener("click", () => {
 
 SearchBtn.addEventListener("click", searchRecipes);
 function searchRecipes() {
-  containerRecipesCards.classList.add("border","border-dark"); // Add the border border-dark
+  //containerRecipesCards.classList.add("border","border-dark"); // Add the border border-dark
   recipevaluesToSearchFor = recipeSearch.value;
 
   const requestBody = { labelsArray: recipevaluesToSearchFor };
@@ -460,9 +462,11 @@ function searchRecipes() {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(requestBody),
+    
   })
     .then((response) => response.json())
     .then((data) => {
+      console.log(data);
       buildRecipeCards(data);
     })
     .catch((error) => {
@@ -486,6 +490,8 @@ function buildRecipeCards(data) {
 
   // Clear previous content
 
+  //containerRecipesCards
+  recipeCardsContainer.classList.remove("d-none");
   containerRecipesCardsDelete.classList.remove("border", "border-dark");
   recipeCardsContainer.innerHTML = "";
   containerRecipesCardsError.innerHTML = "";
@@ -493,7 +499,12 @@ function buildRecipeCards(data) {
   containerRecipesCardsError.classList.add("d-none");
 
   if (data.length < 1) {
-    errorMessageHandling()
+    //errorMessageHandling()
+    recipeCardsContainer.classList.add("d-none");
+    paginationContainer.classList.add("d-none");
+    errorMessageHandling();
+    console.log(453);
+    err
     return;
   }
 
